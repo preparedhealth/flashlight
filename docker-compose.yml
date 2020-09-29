@@ -1,11 +1,13 @@
-version: "2"
+version: "2.1"
 
 services:
   flashlight:
     build: .
+    depends_on:
+      - elasticsearch
     image: flashlight:dev
     environment:
-      FB_URL: https://my-project.firebaseio.com
+      FB_URL: ${FB_URL:-https://my-project.firebaseio.com}
       ES_HOST: elasticsearch
       NODE_ENV: production
     volumes:
