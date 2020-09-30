@@ -25,6 +25,13 @@ for (var attrname in conf.ES_OPTS) {
   }
 }
 
+function initFlashlight() {
+  console.log('Connecting to Firebase %s'.grey, conf.FB_URL);
+  fbutil.init(conf.FB_URL, conf.FB_SERVICEACCOUNT);
+  PathMonitor.process(esc, conf.paths, conf.FB_PATH);
+  SearchQueue.init(esc, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
+}
+
 // connect to ElasticSearch
 var esc = new elasticsearch.Client(escOptions);
 
@@ -38,11 +45,4 @@ var timeoutObj = setInterval(function() {
       initFlashlight();
     });
   }, 5000);
-}
-
-function initFlashlight() {
-  console.log('Connecting to Firebase %s'.grey, conf.FB_URL);
-  fbutil.init(conf.FB_URL, conf.FB_SERVICEACCOUNT);
-  PathMonitor.process(esc, conf.paths, conf.FB_PATH);
-  SearchQueue.init(esc, conf.FB_REQ, conf.FB_RES, conf.CLEANUP_INTERVAL);
 }
